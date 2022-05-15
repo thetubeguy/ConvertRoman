@@ -27,9 +27,14 @@ namespace ConvertRoman
                 new Mainsymbol(100,'C')
             };
 
-            int usernum = 59;
+           
 
             string output="";
+
+            Console.WriteLine("Please enter a number between 1 and 99:  ");
+
+          
+            int usernum = Convert.ToInt32(Console.ReadLine()); ;
 
             recursenumerals(usernum, ref output);
 
@@ -42,10 +47,17 @@ namespace ConvertRoman
                     if ((num >= symbolarray[index].decim) && (num < symbolarray[index + 1].decim))
                     {
                         int remaining = 0;
+                        string numstring = num.ToString()[..1];
 
-                        if (num == 9)
+                        if (Int32.Parse(numstring) == 4) 
                         {
-                            output += "IX";
+                            output += String.Concat(symbolarray[index].roman, symbolarray[index + 1].roman);
+                            remaining = num - (symbolarray[index + 1].decim - symbolarray[index].decim);
+                        }
+                        else if (Int32.Parse(numstring) == 9)
+                        {
+                            output += String.Concat(symbolarray[index-1].roman , symbolarray[index + 1].roman);
+                            remaining = num - (symbolarray[index + 1].decim - symbolarray[index - 1].decim);
                         }
                         else
                         {
@@ -59,6 +71,8 @@ namespace ConvertRoman
                 }
 
             }
+
+            Console.WriteLine($"{usernum} is {output} in roman numerals");
            
         }
     }   
